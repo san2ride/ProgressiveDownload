@@ -34,10 +34,18 @@ struct LinesIterator: IteratorProtocol {
 
 let endpointURL = URL(string: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv")!
 
+//MARK: Asynce/Sequence - Unstructured concurrency. No pause, faster.
+Task {
+    for try await line in endpointURL.lines {
+        print(line)
+    }
+}
 
+/*
 //MARK: awaiting for all data to comethrough, then data loads
 Task {
     for line in await endpointURL.allLines() {
         print(line)
     }
 }
+*/
